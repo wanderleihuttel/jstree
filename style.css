@@ -1,0 +1,52 @@
+    * {
+        margin: 0;
+        padding: 0;
+    } 
+    body {
+        font-size: 12px;
+    }
+    .jstree-proton .jstree-search {
+        font-style: normal!important;
+        color: #ff4f50!important;
+        font-weight: bold;
+    }
+    .container {
+        display: flex;
+        align-items: flex-start;
+    }
+    .tree{
+        position: fixed;
+        top:50px;
+        bottom:0;
+        left: 0;
+        width: 350px;
+        padding-left: 10px;
+        padding-top: 10px;
+        overflow-x: hidden;
+        overflow-y : auto;
+        background: #f5f5f5;
+        border-right: 1px #ccc solid;
+    }
+    .search input{
+        width: 300px!important;
+        font-size: 12px;
+        padding: 5px;
+    }
+    .jstree_buttons button{
+        width: 90px;
+        padding: 5px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    #dialog {
+        padding: 10px;
+        background-color: dodgerblue!important;
+        margin-left: 351px;
+    }
+    nav {
+        background-color: #CCC;
+        height: 50px;
+        line-height: 50px;
+        padding-left: 10px;
+    }
+

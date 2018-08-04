@@ -27,10 +27,8 @@
           <div id="jstree_menu"></div>
         </div>
     </div>
-
     <div class="container">
         <div id="dialog">Div Dialog Teste</div>
     </div>
-
 </body>
 </html>

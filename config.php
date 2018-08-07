@@ -8,7 +8,7 @@
         $password = "";
         $dbname = "intranet";
         
-        $dsn = "mysql:dbname=${dbname};host=${host};port=${port};chartset=utf8;";
+        $dsn = "mysql:dbname=${dbname};host=${host};port=${port};charset=utf8;";
         
         $options = array (
             PDO::ATTR_CASE => PDO::CASE_LOWER,

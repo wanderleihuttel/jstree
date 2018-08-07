@@ -2,7 +2,7 @@
     require_once 'config.php';
     
     /**
-     * function buildTree
+     * function buildTree  (Criar árvore com os elementos)
      * @param array $elements
      * @param array $options['parent_id_column_name', 'children_key_name', 'id_column_name'] 
      * @param int $parentId
@@ -25,9 +25,36 @@
         }
         return $branch;
     } // end buildTree
+
+
+
+    /**
+     * function buildPathLevel (Criar caminho dos menus com todos os níveis)
+     * @param int $id
+     * @param array $elements
+     * @param string $column_id
+     * @return array
+     */
+    function buildPathLevel($id, $array, $field_id){
+        $array_path = array();
+        $key=true;
+        while($key){
+            $key = array_search($id, array_column($array, $field_id));
+            if( $array[$key]['href'] != ""){
+                $array_path[] = $array[$key]['href'];
+            }
+            if($array[$key]['parent_id']==null){
+                break;
+            }
+            $id =  $array[$key]['parent_id'];
+        }
+        krsort($array_path); 
+        $implode = implode("/", $array_path);
+        return $implode; 
+    } // end buildPathLevel    
     
 
-    // Get data from database
+    // Buscar dados do banco de dados
     $sql = "SELECT  codigosistema AS id, 
                     codigosistemapai AS parent_id, 
                     concat(classificacaosistema, ' - ', descricaosistema) AS text, 
@@ -36,57 +63,44 @@
                     FROM sistema 
                     WHERE codigosistema in (SELECT codigosistema FROM acesso WHERE codigousuario = 7)
                     ORDER BY classificacaosistema";
-
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
-    while( $row = $stmt->fetch() ) { 
-        $row['text'] = utf8_encode( $row['text'] );
-        if( $row['parent_id'] == 0 ) {
-            //$row['icon']  = 'sistema.png';
+    // Percorre o array modifica algumas informações e troca o ícone
+    while( $row = $stmt->fetch() ) {
+        $row['text'] = ( $row['text'] );
+        if ( $row['id'] == 1){
+            $row['icon']  = 'img/icon-controle-de-horas.png';
+        } else if ( $row['id'] == 112){
+            $row['icon']  = 'img/icon-contato.png';
+        } else if ( $row['id'] == 71){
+            $row['icon']  = 'img/icon-custos.png';
+        } else if ( $row['id'] == 57){
+            $row['icon']  = 'img/icon-controle-de-materiais.png';
+        } else if ( $row['id'] == 34){
+            $row['icon']  = 'img/icon-questor.png';
+        } else if ( $row['id'] == 3){
+            $row['icon']  = 'img/icon-gerenciador.png';
+        } else if ( $row['id'] == 2){
+            $row['icon']  = 'img/icon-controle-interno.png';
         }
         $row['a_attr'] =  array ( 
                               'id'   => $row['id'], 
                               'href' => $row['href'] 
                           );
-        //unset($row['href']);
         $data_array[] = $row;
-    }
+    } // end while
 
+      
+    // Altera o caminho completo de cada opção do menu.
+    foreach($data_array as $key => $value ){
+        $path = buildPathLevel( $data_array[$key]['id'] , $data_array, 'id');
+        $data_array[$key]['a_attr']['href'] = $path;
+    }      
 
-    /**
-     * function buildPathLevel
-     * @param int $id
-     * @param array $elements
-     * @param string $column_id
-     * @return array
-     */
-      function buildPathLevel($id, $array, $field_id){
-         $array_path = array();
-         $key=true;
-         while($key){
-            $key = array_search($id, array_column($array, $field_id));
-             if( $array[$key]['href'] != ""){
-                 $array_path[] = $array[$key]['href'];
-             }
-            if($array[$key]['parent_id']==null){
-              break;
-            }
-            $id =  $array[$key]['parent_id'];
-         }
-         krsort($array_path); 
-         $implode = implode("/", $array_path);
-         return $implode; 
-      } 
-      
-      // Altera o caminho completo de cada op��o do menu.
-      foreach($data_array as $key => $value ){
-          $path = buildPathLevel( $data_array[$key]['id'] , $data_array, 'id');
-          $data_array[$key]['a_attr']['href'] = $path;
-      }      
-      
-      //echo "<pre>"; 
-      //print_r( buildTree($data_array) ); exit;
-    
-      // Print tree json
-      echo json_encode(buildTree($data_array) );
+    // Debug array
+    //echo "<pre>"; 
+    //print_r( buildTree($data_array) ); exit;
+
+    // Imprime array json
+    echo json_encode(buildTree($data_array) );

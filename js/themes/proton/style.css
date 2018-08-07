@@ -1,4 +1,4 @@
-/* jsTree default theme */
+/* jsTree proton theme 1.0.2 */
 .jstree-node,
 .jstree-children,
 .jstree-container-ul {
@@ -309,7 +309,7 @@
   background-color: transparent;
 }
 .jstree-proton .jstree-anchor,
-.jstree-proton .jstree-animated,                                 
+.jstree-proton .jstree-animated,
 .jstree-proton .jstree-wholerow {
   transition: background-color 0.15s, box-shadow 0.15s, color 0.15s;
 }

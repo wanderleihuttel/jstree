@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" type="text/javascript"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/jstree.min.js"></script>
-<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jstree-bootstrap-theme@1.0.1/dist/themes/proton/style.min.css">-->
-<link rel="stylesheet" type="text/css" href="js/themes/proton/style.css">
-<script type="text/javascript" src="script.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
-<title>jsTree with PHP and MySQL</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.5/jstree.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/themes/proton/style.css">
+    <script type="text/javascript" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Exemplo de Menu jsTree com PHP e MySQL</title>
 </head>
 <body>
     <nav>
-        <h2>jsTree with PHP and MySQL</h2>
+        <h2>Exemplo de Menu jsTree com PHP e MySQL</h2>
     </nav>
     <div class="container">
         <div class="tree">

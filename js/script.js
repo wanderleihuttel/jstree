@@ -1,3 +1,17 @@
+    // Habilitar menu jstree toggle
+    var open = false;
+    function toggle(){
+        if(open){
+            $("#jstree_menu").jstree('close_all');
+            open = false;
+        }
+        else{
+            $("#jstree_menu").jstree('open_all');
+            open = true;
+        }
+    } // end function toggle    
+
+        
     $(document).ready(function(){
 
         $('#jstree_menu').jstree({
@@ -82,19 +96,4 @@
             open = false;
         });
         
-        
-        // Habilitar menu jstree toggle
-        var open = false;
-        function toggle(){
-            if(open){
-                $("#jstree_menu").jstree('close_all');
-                open = false;
-            }
-            else{
-                $("#jstree_menu").jstree('open_all');
-                open = true;
-            }
-        } // end function toggle        
-        
-
     }); // end document.ready

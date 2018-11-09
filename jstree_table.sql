@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `jstree_menu` (
   `id` int(11) NOT NULL,
-  `parent_id` varchar(11) NOT NULL,
+  `parent_id` varchar(11),
   `name` varchar(255) NOT NULL,
   `href` varchar(255) NOT NULL DEFAULT '',
   `type` int(11) NOT NULL,

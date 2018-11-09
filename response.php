@@ -1,10 +1,10 @@
 <?php
     require_once 'config.php';
-    
+
     /**
      * function buildTree  (Criar árvore com os elementos)
      * @param array $elements
-     * @param array $options['parent_id_column_name', 'children_key_name', 'id_column_name'] 
+     * @param array $options['parent_id_column_name', 'children_key_name', 'id_column_name']
      * @param int $parentId
      * @return array
      */
@@ -48,21 +48,17 @@
             }
             $id =  $array[$key]['parent_id'];
         }
-        krsort($array_path); 
+        krsort($array_path);
         $implode = implode("/", $array_path);
-        return $implode; 
-    } // end buildPathLevel    
-    
+        return $implode;
+    } // end buildPathLevel
+
 
     // Buscar dados do banco de dados
-    $sql = "SELECT  codigosistema AS id, 
-                    codigosistemapai AS parent_id, 
-                    concat(classificacaosistema, ' - ', descricaosistema) AS text, 
-                    hrefsistema AS href,
-                    tiposistema AS type
-                    FROM sistema 
-                    WHERE codigosistema in (SELECT codigosistema FROM acesso WHERE codigousuario = 7)
-                    ORDER BY classificacaosistema";
+    $sql = "SELECT  id, parent_id, name AS text, href, type
+            FROM jstree_menu
+            -- WHERE id in (SELECT id FROM user_access WHERE user_id = 7)
+            ORDER BY name";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
@@ -84,22 +80,22 @@
         } else if ( $row['id'] == 2){
             $row['icon']  = 'img/icon-controle-interno.png';
         }
-        $row['a_attr'] =  array ( 
-                              'id'   => $row['id'], 
-                              'href' => $row['href'] 
+        $row['a_attr'] =  array (
+                              'id'   => $row['id'],
+                              'href' => $row['href']
                           );
         $data_array[] = $row;
     } // end while
 
-      
+
     // Altera o caminho completo de cada opção do menu.
     foreach($data_array as $key => $value ){
         $path = buildPathLevel( $data_array[$key]['id'] , $data_array, 'id');
         $data_array[$key]['a_attr']['href'] = $path;
-    }      
+    }
 
     // Debug array
-    //echo "<pre>"; 
+    //echo "<pre>";
     //print_r( buildTree($data_array) ); exit;
 
     // Imprime array json
